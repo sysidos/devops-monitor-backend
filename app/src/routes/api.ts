@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from "express";
-import { UserController } from "../controllers/UserController";
+import { UserController } from "../controllers/userController";
 
 export class Routes {
 

@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import { UserSchema } from '../models/UserModel';
+import { UserSchema } from '../models/userModel';
 import { Request, Response } from 'express';
 
 const User = mongoose.model('User', UserSchema);
 
-export class UserController{
+export class UserController {
 
     public index (req: Request, res: Response) {
         User.find({}, (err, user) => {
