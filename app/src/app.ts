@@ -28,6 +28,7 @@ class App {
         mongoose.connect(this.mongoUrl, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
+            useFindAndModify: false,
         });
     }
 
