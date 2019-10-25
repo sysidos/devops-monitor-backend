@@ -25,9 +25,6 @@ class App {
     }
 
     private mongoSetup(): void{
-        global.Promise = require('q').Promise;
-        require('mongoose').Promise = global.Promise;
-        // connect to mongodb
         mongoose.connect(this.mongoUrl, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
