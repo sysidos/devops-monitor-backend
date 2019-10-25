@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { UserSchema } from '../models/UserModel';
 import { Request, Response } from 'express';
 
