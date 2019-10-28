@@ -3,8 +3,6 @@ services:
   app:
     restart: always
     build: ./
-    ports:
-      - "443:3000"
     volumes:
       - ./app:/app
     links:
@@ -12,6 +10,16 @@ services:
   mongo:
     image: mongo
     ports:
-      - "27017:27017"
+      - "127.0.0.1:27017:27017"
     volumes:
       - ./data/mongodb:/data/db
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/key-public.crt:/etc/nginx/key-public.crt
+      - ./nginx/key-private.key:/etc/nginx/key-private.key
+    ports:
+      - "127.0.0.1:443:443"
+    links:
+      - app
