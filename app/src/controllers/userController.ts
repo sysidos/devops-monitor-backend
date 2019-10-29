@@ -18,25 +18,40 @@ export class UserController {
     public async index (req: Request, res: Response) {
         try {
             const users = await User.find();
-            res.json(users);
+            res.json({
+                statusCode: 200,
+                data: users
+            });
         } catch(err) {
-            res.send(err);
+            res.json({
+                statusCode: 400,
+                errorMessage: err.message || err.toString()
+            });
         }
     }
 
     /**
      * creates a new user instance
-     * @param  req express request object with updated user details as parameters
+     * @param  req express request object with updated user details in body
      * @param  res express response object
      * @return     json object with statusCode and and created user
      */
     public async create (req: Request, res: Response) {
         try {
-            let newUser = new User(req.body);
+            let newUser = new User({
+                name: req.body.name,
+                email: req.body.email,
+            });
             const user = await newUser.save();
-            res.json(user);
+            res.json({
+                statusCode: 200,
+                data: user
+            });
         } catch(err) {
-            res.send(err);
+            res.json({
+                statusCode: 400,
+                errorMessage: err.message || err.toString()
+            });
         }
     }
 
@@ -49,15 +64,21 @@ export class UserController {
     public async find (req: Request, res: Response) {
         try {
             const user = await User.findById(req.params.userId);
-            res.json(user);
+            res.json({
+                statusCode: 200,
+                data: user
+            });
         } catch(err) {
-            res.send(err);
+            res.json({
+                statusCode: 400,
+                errorMessage: err.message || err.toString()
+            });
         }
     }
 
     /**
      * updates a specific user instance
-     * @param  req express request object with userId parameter
+     * @param  req express request object with userId parameter and new user attributes
      * @param  res express response object
      * @return     json object with statusCode and updated user details
      */
@@ -65,10 +86,19 @@ export class UserController {
         try {
             const user = await User.findOneAndUpdate({
                 _id: req.params.userId
-            }, req.body, { new: true });
-            res.json(user);
+            }, {
+                name: req.body.name,
+                email: req.body.email,
+            }, { new: true });
+            res.json({
+                statusCode: 200,
+                data: user
+            });
         } catch(err) {
-            res.send(err);
+            res.json({
+                statusCode: 400,
+                errorMessage: err.message || err.toString()
+            });
         }
     }
 
@@ -83,9 +113,14 @@ export class UserController {
             await User.deleteOne({
                 _id: req.params.userId
             });
-            res.json({ message: 'Successfully deleted user!'});
+            res.json({
+                statusCode: 200
+            });
         } catch(err) {
-            res.send(err);
+            res.json({
+                statusCode: 400,
+                errorMessage: err.message || err.toString()
+            });
         }
     }
 
