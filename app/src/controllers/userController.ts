@@ -10,7 +10,7 @@ const User = mongoose.model('User', UserSchema);
 export class UserController {
 
     /**
-     * lists all available users
+     * Lists all available users
      * @param  {Request} req - express request object
      * @param  {Response} res — express response object
      * @return json object with statusCode and list of users
@@ -31,7 +31,7 @@ export class UserController {
     }
 
     /**
-     * creates a new user instance
+     * Creates a new user record
      * @param  {Request} req - express request object with updated user details in body
      * @param  {Response} res — express response object
      * @return json object with statusCode and and created user
@@ -56,7 +56,7 @@ export class UserController {
     }
 
     /**
-     * displays details of specific user instance
+     * Displays details of specific user record
      * @param  {Request} req - express request object with userId parameter
      * @param  {Response} res — express response object
      * @return json object with statusCode and user details
@@ -77,7 +77,7 @@ export class UserController {
     }
 
     /**
-     * updates a specific user instance
+     * Updates a specific user record
      * @param  {Request} req - express request object with userId parameter and new user attributes
      * @param  {Response} res — express response object
      * @return json object with statusCode and updated user details
@@ -103,7 +103,7 @@ export class UserController {
     }
 
     /**
-     * deletes a specific user instance
+     * Deletes a specific user record
      * @param  {Request} req - express request object with userId parameter
      * @param  {Response} res — express response object
      * @return json object with statusCode
