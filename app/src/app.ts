@@ -24,7 +24,7 @@ class App {
     /**
      * Configuration for express server
      */
-    private config(): void{
+    private config(): void {
       // access json and form data in requests
       this.app.use(bodyParser.json());
       this.app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,7 +35,7 @@ class App {
     /**
      * connect to mongoDB
      */
-    private mongoSetup(): void{
+    private mongoSetup(): void {
       mongoose.connect(this.mongoUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
