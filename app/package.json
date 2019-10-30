@@ -5,6 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "./node_modules/.bin/eslint './src/**'",
     "build": "tsc",
     "dev": "nodemon --exec 'ts-node' ./src/server.ts",
     "start": "nodemon ./dist/server.js",
