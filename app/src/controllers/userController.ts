@@ -9,28 +9,6 @@ const User = mongoose.model('User', UserSchema);
  */
 export class UserController {
   /**
-   * Lists all available users
-   * @param  {Request} req - express request object
-   * @param  {Response} res — express response object
-   * @return json object with statusCode and list of users
-   */
-  public async index(req: Request, res: Response) {
-    try {
-      const users = await User.find();
-
-      res.json({
-        statusCode: 200,
-        data: users
-      });
-    } catch (err) {
-      res.json({
-        statusCode: 400,
-        errorMessage: err.message || err.toString()
-      });
-    }
-  }
-
-  /**
    * Creates a new user record
    * @param  {Request} req - express request object with updated user details in body
    * @param  {Response} res — express response object
@@ -96,28 +74,6 @@ export class UserController {
       res.json({
         statusCode: 200,
         data: user
-      });
-    } catch (err) {
-      res.json({
-        statusCode: 400,
-        errorMessage: err.message || err.toString()
-      });
-    }
-  }
-
-  /**
-   * Deletes a specific user record
-   * @param  {Request} req - express request object with userId parameter
-   * @param  {Response} res — express response object
-   * @return json object with statusCode
-   */
-  public async delete(req: Request, res: Response) {
-    try {
-      await User.deleteOne({
-        _id: req.params.userId
-      });
-      res.json({
-        statusCode: 200
       });
     } catch (err) {
       res.json({
