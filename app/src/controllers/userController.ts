@@ -40,7 +40,7 @@ export class UserController {
    * @param  {Response} res — express response object
    * @return json object with statusCode and user details
    */
-  public async find(req: Request, res: Response) {
+  public async find(req: Request, res: Response): Promise<void> {
     try {
       const user = await User.findById(req.params.userId);
 
