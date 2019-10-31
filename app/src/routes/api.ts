@@ -22,11 +22,9 @@ export class Routes {
 
       // User
       app.route('/users')
-        .get(this.UserController.index)
         .post(this.UserController.create);
       app.route('/users/:userId')
         .get(this.UserController.find)
-        .put(this.UserController.update)
-        .delete(this.UserController.delete);
+        .put(this.UserController.update);
     }
 }
