@@ -62,7 +62,7 @@ export class UserController {
    * @param  {Response} res — express response object
    * @return json object with statusCode and updated user details
    */
-  public async update(req: Request, res: Response) {
+  public async update(req: Request, res: Response): Promise<void> {
     try {
       const user = await User.findOneAndUpdate({
         _id: req.params.userId
