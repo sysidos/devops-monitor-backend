@@ -14,7 +14,7 @@ export class UserController {
    * @param  {Response} res — express response object
    * @return json object with statusCode and and created user
    */
-  public async create(req: Request, res: Response) {
+  public async create(req: Request, res: Response): Promise<void> {
     try {
       const newUser = new User({
         name: req.body.name,
