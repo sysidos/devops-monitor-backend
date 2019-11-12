@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
+import { AuthController } from '../controllers/authController';
 import { UserController } from '../controllers/userController';
 
 /**
  * Express router
  */
 export class Routes {
+    public AuthController: AuthController = new AuthController()
     public UserController: UserController = new UserController()
 
     /**
@@ -19,6 +21,10 @@ export class Routes {
             message: 'codex devops monitor api!'
           });
         });
+
+      // Authentication
+      app.route('/auth/login')
+        .post(this.AuthController.login);
 
       // User
       app.route('/users')
