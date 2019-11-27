@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { Routes } from './routes/api';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 /**
  * Main app to configure express server with mongo connection
@@ -16,6 +17,7 @@ class App {
      * Run several other configuration methods and mount routes
      */
     constructor() {
+      dotenv.config();
       this.config();
       this.mongoSetup();
       this.routes.routes(this.app);

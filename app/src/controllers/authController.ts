@@ -35,7 +35,7 @@ export class AuthController {
       }
 
       // generate JWT
-      const token = jwt.sign({ userId: user.id }, 'SECRET');
+      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 
       res.json({
         statusCode: 200,

@@ -11,6 +11,11 @@ Access docker containers
 docker-compose exec app bash
 ```
 
+Setup environment variables and adjust the variables according to environment
+```
+cp .env.example .env
+```
+
 Following commands can be run inside the docker container
 
 Install npm packages

@@ -40,26 +40,26 @@ export class Routes {
       // Projects
       app.route('/projects')
         .get(
-          jwt({ secret: 'SECRET' }),
+          jwt({ secret: process.env.JWT_SECRET }),
           this.ProjectController.index
         )
         .post(
-          jwt({ secret: 'SECRET' }),
+          jwt({ secret: process.env.JWT_SECRET }),
           this.ProjectController.create
         );
       app.route('/projects/:projectId')
         .get(
-          jwt({ secret: 'SECRET' }),
+          jwt({ secret: process.env.JWT_SECRET }),
           userHasAccessToProjectId,
           this.ProjectController.find
         )
         .put(
-          jwt({ secret: 'SECRET' }),
+          jwt({ secret: process.env.JWT_SECRET }),
           userHasAccessToProjectId,
           this.ProjectController.update
         )
         .delete(
-          jwt({ secret: 'SECRET' }),
+          jwt({ secret: process.env.JWT_SECRET }),
           userHasAccessToProjectId,
           this.ProjectController.delete
         );
