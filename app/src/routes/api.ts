@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { AuthController } from '../controllers/authController';
 import { ProjectController } from '../controllers/projectController';
 import { UserController } from '../controllers/userController';
+import jwt from 'express-jwt';
+import { userHasAccessToProjectId } from '../middleware/projectAccess';
 
 /**
  * Express router
@@ -37,11 +39,29 @@ export class Routes {
 
       // Projects
       app.route('/projects')
-        .get(this.ProjectController.index)
-        .post(this.ProjectController.create);
+        .get(
+          jwt({ secret: 'SECRET' }),
+          this.ProjectController.index
+        )
+        .post(
+          jwt({ secret: 'SECRET' }),
+          this.ProjectController.create
+        );
       app.route('/projects/:projectId')
-        .get(this.ProjectController.find)
-        .put(this.ProjectController.update)
-        .delete(this.ProjectController.delete);
+        .get(
+          jwt({ secret: 'SECRET' }),
+          userHasAccessToProjectId,
+          this.ProjectController.find
+        )
+        .put(
+          jwt({ secret: 'SECRET' }),
+          userHasAccessToProjectId,
+          this.ProjectController.update
+        )
+        .delete(
+          jwt({ secret: 'SECRET' }),
+          userHasAccessToProjectId,
+          this.ProjectController.delete
+        );
     }
 }
