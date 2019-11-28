@@ -10,8 +10,6 @@ import dotenv from 'dotenv';
 class App {
     public app: express.Application = express();
     public routes: Routes = new Routes();
-    // TODO secure mongodb access with username and password
-    public mongoUrl: string = 'mongodb://mongo:27017/expressmongo';
 
     /**
      * Run several other configuration methods and mount routes
@@ -38,7 +36,7 @@ class App {
      * connect to mongoDB
      */
     private mongoSetup(): void {
-      mongoose.connect(this.mongoUrl, {
+      mongoose.connect(process.env.MONGO_DB_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,
