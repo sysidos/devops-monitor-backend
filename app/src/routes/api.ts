@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { AuthController } from '../controllers/authController';
 import { ProjectController } from '../controllers/projectController';
+import { ServiceController } from '../controllers/serviceController';
 import { UserController } from '../controllers/userController';
 import jwt from 'express-jwt';
 import { userHasAccessToProjectId } from '../middleware/projectAccess';
@@ -12,6 +13,7 @@ export class Routes {
     public AuthController: AuthController = new AuthController()
     public UserController: UserController = new UserController()
     public ProjectController: ProjectController = new ProjectController()
+    public ServiceController: ServiceController = new ServiceController()
 
     /**
      * Express routes
@@ -63,5 +65,9 @@ export class Routes {
           userHasAccessToProjectId,
           this.ProjectController.delete
         );
+
+      // Services
+      app.route('/services')
+        .post(this.ServiceController.create);
     }
 }
