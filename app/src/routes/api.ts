@@ -68,6 +68,7 @@ export class Routes {
 
       // Services
       app.route('/services')
+        .get(this.ServiceController.index)
         .post(this.ServiceController.create);
     }
 }
