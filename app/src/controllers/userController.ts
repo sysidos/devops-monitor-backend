@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { UserSchema } from '../models/userModel';
 import { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 
 const User = mongoose.model('User', UserSchema);
 
@@ -16,9 +17,14 @@ export class UserController {
    */
   public async create(req: Request, res: Response): Promise<void> {
     try {
+      const saltRounds = 10;
+      const password = await bcrypt.hash(req.body.password, saltRounds);
+
       const newUser = new User({
-        name: req.body.name,
-        email: req.body.email
+        password,
+        email: req.body.email,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
       });
       const user = await newUser.save();
 
@@ -67,8 +73,10 @@ export class UserController {
       const user = await User.findOneAndUpdate({
         _id: req.params.userId
       }, {
-        name: req.body.name,
-        email: req.body.email
+        email: req.body.email,
+        password: req.body.password,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
       }, { new: true });
 
       res.json({

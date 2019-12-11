@@ -3,13 +3,23 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 export const UserSchema = new Schema({
-  name: {
+  projects: [ { type: Schema.Types.ObjectId, ref: 'Project' } ],
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
     type: String,
     required: true
   },
-  email: {
+  firstName: {
     type: String,
-    required: true
+    required: false
+  },
+  lastName: {
+    type: String,
+    required: false
   },
   createdDate: {
     type: Date,

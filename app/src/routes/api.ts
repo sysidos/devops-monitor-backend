@@ -1,11 +1,19 @@
 import { Request, Response } from 'express';
+import { AuthController } from '../controllers/authController';
+import { ProjectController } from '../controllers/projectController';
+import { ServiceController } from '../controllers/serviceController';
 import { UserController } from '../controllers/userController';
+import jwt from 'express-jwt';
+import { userHasAccessToProjectId } from '../middleware/projectAccess';
 
 /**
  * Express router
  */
 export class Routes {
+    public AuthController: AuthController = new AuthController()
     public UserController: UserController = new UserController()
+    public ProjectController: ProjectController = new ProjectController()
+    public ServiceController: ServiceController = new ServiceController()
 
     /**
      * Express routes
@@ -20,11 +28,47 @@ export class Routes {
           });
         });
 
+      // Authentication
+      app.route('/auth/login')
+        .post(this.AuthController.login);
+
       // User
       app.route('/users')
         .post(this.UserController.create);
       app.route('/users/:userId')
         .get(this.UserController.find)
         .put(this.UserController.update);
+
+      // Projects
+      app.route('/projects')
+        .get(
+          jwt({ secret: process.env.JWT_SECRET }),
+          this.ProjectController.index
+        )
+        .post(
+          jwt({ secret: process.env.JWT_SECRET }),
+          this.ProjectController.create
+        );
+      app.route('/projects/:projectId')
+        .get(
+          jwt({ secret: process.env.JWT_SECRET }),
+          userHasAccessToProjectId,
+          this.ProjectController.find
+        )
+        .put(
+          jwt({ secret: process.env.JWT_SECRET }),
+          userHasAccessToProjectId,
+          this.ProjectController.update
+        )
+        .delete(
+          jwt({ secret: process.env.JWT_SECRET }),
+          userHasAccessToProjectId,
+          this.ProjectController.delete
+        );
+
+      // Services
+      app.route('/services')
+        .get(this.ServiceController.index)
+        .post(this.ServiceController.create);
     }
 }
