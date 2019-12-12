@@ -22,7 +22,7 @@ export class ServiceController {
     try {
       // check if project for token is existing
       const project = await Project.findOne({
-        token: req.body.project_token
+        token: req.body.projectToken
       });
 
       if (project === null) {
@@ -59,7 +59,7 @@ export class ServiceController {
     try {
       // check if project for token is existing
       const project = await Project.findOne({
-        token: req.body.project_token
+        token: req.body.projectToken
       });
 
       if (project === null) {
