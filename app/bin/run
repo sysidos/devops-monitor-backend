@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Terminate the running service
+screen -X -S DevopsMonitorBackend quit
+
+# Go to the project directory and pull changes
+cd /root/devops-monitor-backend
+git fetch origin master
+git reset --hard origin/master
+
+# Go to the code dir and install nodejs dependences
+cd ./app
+npm ci --silent
+
+# Run service in the screen
+screen -dmS DevopsMonitorBackend npm run prod
